@@ -1,37 +1,16 @@
 const users = require('../models/users');
 
-module.exports.createUsers = async (name , email, password) => {
-    console.log('pre if in service');
-    if (!name) {
-      throw "EMPTY_NAME";
-    } else if (!email) {
-      throw "EMPTY_EMAIL";
-    } else if (!password) {
-      throw "EMPTY_PASSWORD";
-    } else {
-        console.log('else in service')
-        const result = await users.createUser(name, email, password);
-        if (!result) {
-        throw "SYSTEM_ERROR";
-      } else {
-        return true;
-      }
-    }
-};
-
-module.exports.getUser = async (email, password) => {
+module.exports.getUserById = async (userId) => {
   console.log('pre if in service');
-  if (!email) {
-    throw "EMPTY_EMAIL";
-  } else if (!password) {
-    throw "EMPTY_PASSWORD";
+  if (!userId) {
+    throw "EMPTY_USERID";
   } else {
       console.log('else in service')
-      const result = await users.getUser(email, password);
+      const result = await users.getUserById(userId);
       if (!result) {
       throw "SYSTEM_ERROR";
     } else {
-      return true;
+      return result;
     }
   }
 };

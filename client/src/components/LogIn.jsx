@@ -1,8 +1,9 @@
-import React, {useState } from 'react';
+import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const LogIn = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        name: "",
         email: "",
         password: "",
     });
@@ -18,7 +19,7 @@ const SignIn = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:5000/auth/signin", {
+            const response = await fetch("http://localhost:5000/auth/login", {
                method: "POST",
                headers: {
                     "Content-Type": "application/json",
@@ -29,30 +30,23 @@ const SignIn = () => {
             const result = await response.json();
 
             if (response.ok){
-                alert('User registered succesfully!');
-                setFormData({name: "", email: "", password: ""});
+                alert('User Logged In succesfully!');
+                setFormData({email: "", password: ""});
+                console.log('userId:', result.data[0].userId);
+                localStorage.setItem('authToken', result.token);
+                navigate('/');
             }else {
-                alert(result.message || "Registration failed");
+                alert(result.message || "Login failed");
             }
         }catch (error) {
-            console.error("Error signing up:", error);
+            console.error("Error loging up:", error);
         }
     };
 
     return (
         <div>
-            <h2>Sign Up</h2>
+            <h2>Log in</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                <label>Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-                </div>
                 <div>
                 <label>Email:</label>
                 <input
@@ -73,10 +67,10 @@ const SignIn = () => {
                     required
                 />
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit">Enter</button>
             </form>
         </div>
     );
 };
 
-export default SignIn;
+export default LogIn;

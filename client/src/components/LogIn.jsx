@@ -47,9 +47,10 @@ const LogIn = () => {
         <div>
             <h2>Log in</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                <label>Email:</label>
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
                 <input
+                    class="form-control"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -57,9 +58,10 @@ const LogIn = () => {
                     required
                 />
                 </div>
-                <div>
-                <label>Password:</label>
+                <div class="mb-3">
+                <label class="form-label">Password:</label>
                 <input
+                    class="form-control"
                     type="password"
                     name="password"
                     value={formData.password}

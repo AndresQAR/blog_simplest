@@ -6,6 +6,8 @@ module.exports.createBlog = async (title, content, userId) => {
       throw "EMPTY_TITLE";
     } else if (!content) {
       throw "EMPTY_CONTENT";
+    }else if (!userId) {
+      throw "EMPTY_USERID";
     } else {
         console.log('else in service')
         const result = await users.createBlog(title, content, userId);

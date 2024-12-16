@@ -74,26 +74,30 @@ const EditProfile = () => {
         <div>
             <h2>Edit Profile</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                <label>Name:</label>
-                <input
-                    type="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input 
+                        type="name" 
+                        name="name" 
+                        class="form-control"  
+                        placeholder="..."
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        />
                 </div>
-                <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                        type="password" 
+                        name="password"  
+                        class="form-control" 
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
+
                 <button type="submit">Update</button>
             </form>
         </div>

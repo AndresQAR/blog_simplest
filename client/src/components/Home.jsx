@@ -16,12 +16,16 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Blog Posts</h1>
-      <ul>
+      <h1>Posts</h1>
+      <ul class="list-unstyled px-4 py-4">
         {blogs.map(blog => (
-          <li key={blog.blogId}>
-            <h2>{blog.title}</h2>
-            <p>{blog.content}</p>
+          <li class="my-3"  key={blog.blogId}>
+            <div class="card" style={{width: "18rem"}}>
+              <div class="card-body">
+                <h5 class="card-title">{blog.title}</h5>
+                <p class="card-text">{blog.content}</p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

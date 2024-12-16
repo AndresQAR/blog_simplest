@@ -41,11 +41,12 @@ const SignIn = () => {
 
     return (
         <div>
-            <h2>Sign Up</h2>
+            <h2 class="mb-4">Sign up</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                <label>Name:</label>
+                <div class="mb-3">
+                <label class="form-label">Name:</label>
                 <input
+                    class="form-control"
                     type="text"
                     name="name"
                     value={formData.name}
@@ -53,9 +54,10 @@ const SignIn = () => {
                     required
                 />
                 </div>
-                <div>
-                <label>Email:</label>
+                <div class="mb-3">
+                <label class="form-label">Email:</label>
                 <input
+                    class="form-control"
                     type="email"
                     name="email"
                     value={formData.email}
@@ -63,9 +65,10 @@ const SignIn = () => {
                     required
                 />
                 </div>
-                <div>
-                <label>Password:</label>
+                <div class="mb-3">
+                <label class="form-label">Password:</label>
                 <input
+                    class="form-control"
                     type="password"
                     name="password"
                     value={formData.password}

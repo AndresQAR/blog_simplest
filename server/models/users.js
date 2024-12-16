@@ -2,25 +2,12 @@ const express = require("express");
 var app = express();
 const sql = require("mssql");
 
-const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_DATABASE,
-  port: parseInt(process.env.DB_PORT, 10),
-  options: {
-    encrypt: process.env.DB_ENCRYPT === "true",
-    trustServerCertificate: process.env.DB_TRUSTSERVERCERTIFICATE === "true",
-  },
-};
-
-console.log("DB Config:", config);
+console.log("DB Config:", process.env.DB_CONNECTION);
 
 exports.createUser = async (name, email, password) => {
     let db;
-  try {  
-    console.log(config);  
-    db = await sql.connect(config);
+  try { 
+    db = await sql.connect(process.env.DB_CONNECTION);
     let result = await db.request()
         .input("name", sql.VarChar(100), name)
         .input("email", sql.VarChar(100), email)
@@ -32,14 +19,34 @@ exports.createUser = async (name, email, password) => {
     console.log("Error creating user:", err);
   }
 };
-
-sql.connect(config, (err, pool) => {
-  if (err) {
-    return console.error(err);
+exports.getUser = async (email, password) => {
+    let db;
+  try { 
+    db = await sql.connect(process.env.DB_CONNECTION);
+    let result = await db.request()
+        .input("email", sql.VarChar(100), email)
+        .input("password", sql.VarChar(255), password)
+        .query(`SELECT * FROM users WHERE email = @email AND password = @password`);
+    return result.rowsAffected;
+  } catch (err) {
+    console.log("Error login:", err);
   }
-  console.log('DB connection established - starting web server');
-  const server = app.listen(1433, function() {
-    console.log('Web server is running.....');
-  });
-  server.on('close', sql.close.bind(sql));
-});
+};
+
+exports.updateUser = async (name, email, password, userId) => {
+  let db;
+try { 
+  db = await sql.connect(process.env.DB_CONNECTION);
+  let result = await db.request()
+      .input("name", sql.VarChar(100), name)
+      .input("email", sql.VarChar(100), email)
+      .input("password", sql.VarChar(255), password)
+      .input("userId", sql.Int, userId)
+      .query(`UPDATE users 
+        SET name = @name, email = @email, password = @password 
+        WHERE userId = @userId`);
+  return result.rowsAffected;
+} catch (err) {
+  console.log("Error updating user:", err);
+}
+};
